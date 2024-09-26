@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor game</title>
+    <style>
+        body{
+            background-color: rgb(25,25,25);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .title{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .brother{
+            height: 60px;
+            
+
+
+        }
+        .damn{
+          border-width: 3px ;
+          border-style: solid;
+          border-radius: 100px;
+          height: 120px;
+          width: 120px;
+          margin-right: 12px;
+          border-color: white;
+          
+            
+            
+            
+            
+          background-color: rgb(25,25,25);
+
+        }
+        .win{
+          font-size: 25px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: bold;
+          margin-top: 50px;
+        }
+        .js-wins{
+          margin-top: 60px;
+        }
+        .reset-score-button{
+          background-color: white;
+          border: none;
+          font-size: 15px;
+          padding: 8px 20px;
+          cursor: pointer;
+        }
+
+
+
+    </style>
+</head>
+  <body>
+
+    <p class="title">Rock Paper Scissor Game</p>
+
+
+      <button class="damn"  onclick="
+      playGame('rock');
+
+       
+          
+        
+        
+        
+          
+          "><img class="brother" src="/Rock Paper scissor/image/rock-emoji.png" >
+          </button>
+      <button class="damn" onclick="
+      playGame('scissors');
+        
+        
+       
+        
+      
+      
+      "><img class="brother" src="/Rock Paper scissor/image/scissors-emoji.png" ></button>
+      <button class="damn" onclick="
+        playGame('paper');
+        
+        
+      
+       
+      "><img class="brother" src="/Rock Paper scissor/image/paper-emoji.png" ></button>
+
+      <p class="js-score win  "> You Win</p>
+
+
+
+      <p class="js-move">
+      </p>
+
+
+
+       <p class="js-wins cool"> </p>
+
+
+      <button  onclick="score.wins=0 ,
+      score.loss=0 ,
+      score.ties=0
+      localStorage.removeItem('score');
+      document.querySelector('.js-score').innerHTML='You pressed Reset score. ';
+      document.querySelector('.js-wins').innerHTML=` wins:${score.wins} , losses:${score.loss} , Draw:${score.ties}`;
+      "
+      class="reset-score-button"
+
+      >Reset Score</button>
+
+
+
+      
+      
+        
+
+      
+
+
+
+
+
+
+
+
+
+
+      <script>
+
+        
+        let score =JSON.parse(localStorage.getItem('score')) || {
+          
+            wins:0,
+            loss:0,
+            ties:0
+
+          }
+
+
+          
+
+        
+        
+        function playGame(playerMove) {
+
+          
+          
+          const compPlay =  pickMove();
+          
+          
+
+
+          let result = '';
+          
+          
+          
+
+          if (playerMove==='rock') {
+            
+
+            if (compPlay === 'rock') {
+                result = 'Draw';
+                
+                
+            } else if( compPlay==='scissors') {
+                result ='Win';
+            }  else if ( compPlay ==='paper'){
+                result = 'Loose';
+            }
+            if(result==='Win') {
+              score.wins=score.wins+1;
+            }else if(result==='Draw'){
+              score.ties=score.ties+1;
+            }else{
+              score.loss=score.loss+1;
+            }
+            localStorage.setItem('score', JSON.stringify(score));
+
+            
+
+          
+
+
+            //alert(`The compter chose ${compPlay}.You chose ${playerMove}. Hence, You ${result}
+              //wins: ${score.wins} Losses:${score.loss} Draws: ${score.ties}`)    
+              
+            
+
+
+              
+
+
+          }
+
+          else if(playerMove === 'scissors') {
+
+            if(compPlay==='scissors') {
+              result = 'Draw';
+            } else if (compPlay=== 'paper') {
+              result='Win';
+            } else if(compPlay==='rock') {
+              result='Loose';
+            }
+            if(result==='Win') {
+                score.wins=score.wins+1;
+            }else if(result==='Draw'){
+                score.ties=score.ties+1;
+            }else{
+                score.loss=score.loss+1;
+            }
+            localStorage.setItem('score', JSON.stringify(score));
+
+
+            
+            //alert(`The compter chose ${compPlay1}.You chose ${playerMove}. Hence, You ${result}
+              //wins: ${score.wins} Losses:${score.loss} Draws: ${score.ties}`)  
+
+            
+            
+              
+            
+
+            
+
+
+          }else if (playerMove==='paper') {
+              if(compPlay==='rock') {
+                result='Win';
+              } else if(compPlay==='scissors') {
+                result='Loose';
+              } else if (compPlay==='paper'){
+                result='Draw';
+              }
+              if(result==='Win') {
+                score.wins=score.wins+1;
+              }else if(result==='Draw'){
+                score.ties=score.ties+1;
+              }else{
+                score.loss=score.loss+1;
+              }
+
+              localStorage.setItem('score', JSON.stringify(score));
+
+              
+              
+
+
+              //alert(`The compter chose ${compPlay2}.You chose ${playerMove}. Hence, You ${result}.
+              //wins: ${score.wins} Losses:${score.loss} Draws: ${score.ties}`)
+              
+
+          }
+             
+            
+
+
+          
+          updatescoreElement();
+
+          document.querySelector('.js-score').innerHTML=`You ${result}.`;
+          
+          document.querySelector('.js-move').innerHTML=
+          `You <img class="brother" src="/Rock Paper scissor/image/${playerMove}-emoji.png"  alt="" > <img class="brother" src="/Rock Paper scissor/image/${compPlay}-emoji.png" alt="">Computer`;
+
+
+
+
+
+
+
+          function updatescoreElement() {
+
+          
+          
+
+          document.querySelector('.js-score').innerHTML=`  The compter chose ${compPlay}.You chose ${playerMove}.`
+          document.querySelector('.js-wins').innerHTML=` wins: ${score.wins} , Losses:${score.loss} , Draws: ${score.ties}`;
+
+
+          }
+
+    
+          
+
+
+          
+
+
+          
+
+          
+
+          
+          
+          
+          
+
+          
+          
+          
+          
+          
+        
+        
+        
+
+
+        }
+
+
+        
+        
+        
+        
+        
+        function pickMove() {
+          let compPlay='';
+          
+          
+          const randomNumber = Math.random();
+        
+          if (randomNumber >0.7) {
+            compPlay='scissors';
+            
+            
+            
+            
+          
+          } else if( 0.5<randomNumber<0.7) {
+            compPlay='rock';
+            
+          } else{
+            compPlay='paper';
+            
+          }
+          return compPlay;
+
+
+
+          
+
+
+
+
+          
+
+        }
+
+        
+        
+        
+       
+        
+      </script>
+      
+  </body>
+</html>
